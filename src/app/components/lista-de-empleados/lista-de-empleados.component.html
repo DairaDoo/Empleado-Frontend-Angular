@@ -1,30 +1,33 @@
 <div class="container mt-4">
-    <div class="card shadow-lg border-0 rounded-3">
-      <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-        <h3 class="mb-0">Lista de Empleados</h3>
-        <input type="text" class="form-control w-25" placeholder="🔍 Buscar empleado...">
-      </div>
-      <div class="card-body p-0">
-        <div class="table-responsive">
-          <table class="table table-hover table-striped table-bordered align-middle">
-            <thead class="table-dark">
-              <tr>
-                <th class="text-center">ID</th>
-                <th>Nombre</th>
-                <th>ID Documento</th>
-                <th class="text-end">Sueldo ($)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let empleado of empleados">
-                <td class="text-center">{{ empleado.idEmpleado }}</td>
-                <td>{{ empleado.nombreCompleto }}</td>
-                <td>{{ empleado.numeroDocumento }}</td>
-                <td class="text-end fw-bold">{{ empleado.sueldo | currency:'USD':'symbol' }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div class="card shadow-lg border-0 rounded-3">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">Lista de Empleados</h3>
+      <input type="text" class="form-control w-25" placeholder="🔍 Buscar empleado...">
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped table-bordered align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th class="text-center">ID</th>
+              <th>Nombre</th>
+              <th>ID Documento</th>
+              <th class="text-end">Sueldo ($)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let empleado of empleados">
+              <td class="text-center">{{ empleado.idEmpleado }}</td>
+              <td>{{ empleado.nombreCompleto }}</td>
+              <td>{{ empleado.numeroDocumento }}</td>
+              <td class="text-end fw-bold">{{ empleado.sueldo | currency:'USD':'symbol' }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+
+  <!-- Aquí se agrega el componente hijo con el formulario -->
+  <app-crear-empleado></app-crear-empleado>
+</div>
