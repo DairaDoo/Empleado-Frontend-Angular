@@ -1,15 +1,10 @@
 <!-- Botón para abrir el Modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearEmpleadoModal">
-    Crear Nuevo Empleado
-  </button>
-
   <!-- Modal para Crear Empleado -->
   <div class="modal fade" id="crearEmpleadoModal" tabindex="-1" aria-labelledby="crearEmpleadoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="background-color: #88c6f4;">
         <div class="modal-header" style="background-color: #ff6f61;">
-          <h5 class="modal-title" id="crearEmpleadoModalLabel" style="color: #ffffff;">Crear Nuevo Empleado</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
         </div>
         <div class="modal-body">
           <form (ngSubmit)="onCrearEmpleado()">
@@ -37,3 +32,30 @@
       </div>
     </div>
   </div>
+
+<!-- Toast de Éxito -->
+<div aria-live="polite" aria-atomic="true" class="toast-container">
+  <div #toastSuccess class="toast toast-custom-success" data-bs-autohide="true">
+    <div class="toast-header">
+      <strong class="mr-auto">Éxito</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      ¡Empleado creado exitosamente!
+    </div>
+  </div>
+
+  <!-- Toast de Error -->
+  <div #toastError class="toast toast-custom-error" data-bs-autohide="true">
+    <div class="toast-header">
+      <strong class="mr-auto">Error</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Ocurrió un error al crear el empleado. Inténtalo de nuevo.
+    </div>
+  </div>
+</div>
+
+
+

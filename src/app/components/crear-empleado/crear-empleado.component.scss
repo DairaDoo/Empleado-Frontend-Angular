@@ -10,3 +10,73 @@
   .modal-body {
     background-color: #f9f9f9;
   }
+
+  .toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+  }
+
+  .toast-custom-success {
+    background-color: #4CAF50; // Verde éxito
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    .toast-header {
+      background-color: #88c6f4;
+      color: #2b2b2b;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-close {
+      filter: invert(1);
+    }
+  }
+
+  .toast-custom-error {
+    background-color: #ff6f61; // Rojo error
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+
+    .toast-header {
+      background-color: #f8d7da;
+      color: #721c24;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-close {
+      filter: invert(1);
+    }
+  }
+
+  .custom-btn {
+    background-color: #ff6f61;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background-color: #e55b50;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        background-color: #cc4d45;
+        transform: translateY(1px);
+    }
+}
+
+

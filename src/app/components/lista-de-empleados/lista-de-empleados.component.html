@@ -1,13 +1,26 @@
 <div class="container mt-4">
-  <div class="card shadow-lg border-0 rounded-3">
-    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+  <div class="card shadow-lg border-0 rounded-4" style="background-color: #f8f9fa;">
+    <!-- Cabecera con título, búsqueda y botón -->
+    <div class="card-header d-flex justify-content-between align-items-center"
+         style="background-color: #ff6f61; color: #ffffff; border-top-left-radius: 10px; border-top-right-radius: 10px;">
       <h3 class="mb-0">Lista de Empleados</h3>
-      <input type="text" class="form-control w-25" placeholder="🔍 Buscar empleado...">
+
+      <div class="d-flex gap-3">
+        <input type="text" class="form-control w-50 rounded-pill px-3" placeholder="🔍 Buscar empleado..."
+               style="border: 2px solid #ff6f61; max-width: 250px;">
+
+        <!-- Botón de Crear Empleado -->
+        <button type="button" class="btn custom-btn" data-bs-toggle="modal" data-bs-target="#crearEmpleadoModal">
+          + Crear Empleado
+        </button>
+      </div>
     </div>
+
+    <!-- Tabla de empleados -->
     <div class="card-body p-0">
       <div class="table-responsive">
         <table class="table table-hover table-striped table-bordered align-middle">
-          <thead class="table-dark">
+          <thead style="background-color: #88c6f4; color: #ffffff;">
             <tr>
               <th class="text-center">ID</th>
               <th>Nombre</th>
@@ -16,11 +29,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let empleado of empleados">
+            <tr *ngFor="let empleado of empleados" style="transition: all 0.3s;">
               <td class="text-center">{{ empleado.idEmpleado }}</td>
               <td>{{ empleado.nombreCompleto }}</td>
               <td>{{ empleado.numeroDocumento }}</td>
-              <td class="text-end fw-bold">{{ empleado.sueldo | currency:'USD':'symbol' }}</td>
+              <td class="text-end fw-bold" style="color: #4CAF50;">{{ empleado.sueldo | currency:'USD':'symbol' }}</td>
             </tr>
           </tbody>
         </table>
@@ -28,6 +41,6 @@
     </div>
   </div>
 
-  <!-- Aquí se agrega el componente hijo con el formulario -->
+  <!-- Formulario para crear empleados -->
   <app-crear-empleado></app-crear-empleado>
 </div>

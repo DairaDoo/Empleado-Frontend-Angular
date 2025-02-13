@@ -24,8 +24,8 @@ export class EmpleadoService {
   }
 
   // Metodo para crear un empleado
-  crearEmpleado(empleado: Empleado): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/Crear`, empleado)
+  crearEmpleado(empleado: Empleado): Observable<any> {
+    return this.http.post('http://localhost:5034/api/Empleado/Crear', empleado, { responseType: 'text' });
   }
 
   // Metodo para editar empleado

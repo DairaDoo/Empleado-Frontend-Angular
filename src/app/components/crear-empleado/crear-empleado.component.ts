@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { EmpleadoService } from '../../services/empleado.service';
 import { Empleado } from '../../models/empleado';
 import { FormsModule } from '@angular/forms';
+import Toast from 'bootstrap/js/dist/toast';
 
 @Component({
   selector: 'app-crear-empleado',
@@ -10,7 +11,10 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule]
 })
 export class CrearEmpleadoComponent {
-  // valores default del empleado
+
+  @ViewChild('toastSuccess') toastSuccess!: ElementRef;
+  @ViewChild('toastError') toastError!: ElementRef;
+
   nuevoEmpleado: Empleado = {
     idEmpleado: 0,
     numeroDocumento: '',
@@ -18,19 +22,25 @@ export class CrearEmpleadoComponent {
     sueldo: 0
   };
 
-  // injecta, el servicio de empleado
   constructor(private empleadoService: EmpleadoService) {}
 
   onCrearEmpleado(): void {
     this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe({
       next: (respuesta) => {
         console.log(respuesta);
-        // si tiene exito, limpia los campos
         this.nuevoEmpleado = { idEmpleado: 0, numeroDocumento: '', nombreCompleto: '', sueldo: 0 };
+        this.mostrarToast(true);
       },
       error: (error) => {
         console.error('Error al crear el empleado:', error);
+        this.mostrarToast(false);
       }
     });
+  }
+
+  mostrarToast(esExito: boolean): void {
+    const toastElement = esExito ? this.toastSuccess.nativeElement : this.toastError.nativeElement;
+    const toast = new Toast(toastElement);
+    toast.show();
   }
 }
