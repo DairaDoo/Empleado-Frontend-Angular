@@ -23,8 +23,13 @@ export class ListaDeEmpleadosComponent implements OnInit {
   constructor(private empleadoService: EmpleadoService) {}
 
   ngOnInit(): void {
+    this.cargarEmpleados();
+  }
+
+  cargarEmpleados(): void {
     this.empleadoService.getEmpleados().subscribe((data) => {
       this.empleados = data;
-    });
+    })
   }
+
 }

@@ -1,47 +1,120 @@
 <!-- Botón para abrir el Modal -->
-  <!-- Modal para Crear Empleado -->
-  <div class="modal fade" id="crearEmpleadoModal" tabindex="-1" aria-labelledby="crearEmpleadoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content" style="background-color: #88c6f4;">
-        <div class="modal-header" style="background-color: #ff6f61;">
+<!-- Modal para Crear Empleado -->
+<div class="modal fade" #crearEmpleadoModal id="crearEmpleadoModal" tabindex="-1">
 
-        </div>
-        <div class="modal-body">
-          <form (ngSubmit)="onCrearEmpleado()">
-            <div class="mb-3">
-              <label for="nombreCompleto" class="form-label" style="color: #2b2b2b;">Nombre Completo</label>
-              <input type="text" id="nombreCompleto" class="form-control" [(ngModel)]="nuevoEmpleado.nombreCompleto" name="nombreCompleto" required
-              placeholder="Ejemplo: Juan Pérez" style="background-color: #ffffff; border: 2px solid #ff6f61; border-radius: 10px;">
-            </div>
-            <div class="mb-3">
-              <label for="numeroDocumento" class="form-label" style="color: #2b2b2b;">Número Documento</label>
-              <input type="text" id="numeroDocumento" class="form-control" [(ngModel)]="nuevoEmpleado.numeroDocumento" name="numeroDocumento" required
-              placeholder="Ejemplo: 12345678" style="background-color: #ffffff; border: 2px solid #ff6f61; border-radius: 10px;">
-            </div>
-            <div class="mb-3">
-              <label for="sueldo" class="form-label" style="color: #2b2b2b;">Sueldo</label>
-              <input type="number" id="sueldo" class="form-control" [(ngModel)]="nuevoEmpleado.sueldo" name="sueldo" required
-              placeholder="Ejemplo: 2500" style="background-color: #ffffff; border: 2px solid #ff6f61; border-radius: 10px;">
-            </div>
-            <div class="d-flex justify-content-between">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn" style="background-color: #4CAF50; color: #fff; border-radius: 10px;">Crear Empleado</button>
-            </div>
-          </form>
-        </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background-color: #88c6f4">
+      <div class="modal-header" style="background-color: #ff6f61"></div>
+      <div class="modal-body">
+        <form (ngSubmit)="onCrearEmpleado()">
+          <div class="mb-3">
+            <label
+              for="nombreCompleto"
+              class="form-label"
+              style="color: #2b2b2b"
+              >Nombre Completo</label
+            >
+            <input
+              type="text"
+              id="nombreCompleto"
+              class="form-control"
+              [(ngModel)]="nuevoEmpleado.nombreCompleto"
+              name="nombreCompleto"
+              required
+              placeholder="Ejemplo: Juan Pérez"
+              style="
+                background-color: #ffffff;
+                border: 2px solid #ff6f61;
+                border-radius: 10px;
+              "
+            />
+          </div>
+          <div class="mb-3">
+            <label
+              for="numeroDocumento"
+              class="form-label"
+              style="color: #2b2b2b"
+              >Número Documento</label
+            >
+            <input
+              type="text"
+              id="numeroDocumento"
+              class="form-control"
+              [(ngModel)]="nuevoEmpleado.numeroDocumento"
+              name="numeroDocumento"
+              required
+              placeholder="Ejemplo: 12345678"
+              style="
+                background-color: #ffffff;
+                border: 2px solid #ff6f61;
+                border-radius: 10px;
+              "
+            />
+          </div>
+          <div class="mb-3">
+            <label for="sueldo" class="form-label" style="color: #2b2b2b"
+              >Sueldo</label
+            >
+            <input
+              type="number"
+              id="sueldo"
+              class="form-control"
+              [(ngModel)]="nuevoEmpleado.sueldo"
+              name="sueldo"
+              required
+              placeholder="Ejemplo: 2500"
+              style="
+                background-color: #ffffff;
+                border: 2px solid #ff6f61;
+                border-radius: 10px;
+              "
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn"
+              style="
+                background-color: #4caf50;
+                color: #fff;
+                border-radius: 10px;
+              "
+            >
+              Crear Empleado
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
 <!-- Toast de Éxito -->
 <div aria-live="polite" aria-atomic="true" class="toast-container">
   <div #toastSuccess class="toast toast-custom-success" data-bs-autohide="true">
     <div class="toast-header">
       <strong class="mr-auto">Éxito</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
     </div>
-    <div class="toast-body">
-      ¡Empleado creado exitosamente!
+    <div class="toast-body">¡Empleado creado exitosamente!</div>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="cargando" class="loader-overlay">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Cargando...</span>
     </div>
   </div>
 
@@ -49,13 +122,15 @@
   <div #toastError class="toast toast-custom-error" data-bs-autohide="true">
     <div class="toast-header">
       <strong class="mr-auto">Error</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
     </div>
     <div class="toast-body">
       Ocurrió un error al crear el empleado. Inténtalo de nuevo.
     </div>
   </div>
 </div>
-
-
-
