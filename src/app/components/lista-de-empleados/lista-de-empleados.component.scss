@@ -20,3 +20,23 @@
         transform: translateY(1px);
     }
 }
+
+.btn-custom-update {
+    background-color: #ff6f61; // Mismo color que el encabezado
+    border: none;
+    color: white;
+    border-radius: 50px;
+    padding: 6px 12px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: darken(#ff6f61, 10%);
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+

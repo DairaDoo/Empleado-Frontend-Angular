@@ -5,7 +5,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { CrearEmpleadoComponent } from "../crear-empleado/crear-empleado.component";
 
-declare var bootstrap: any; // Para manejar el modal de Bootstrap
+declare var bootstrap: any;
 
 @Component({
   selector: "app-lista-de-empleados",
@@ -19,11 +19,13 @@ export class ListaDeEmpleadosComponent implements OnInit {
   cargando: boolean = false;
   searchText: string = "";
   empleadoSeleccionado: Empleado | null = null;
+  modalActualizar: any;
 
   constructor(private empleadoService: EmpleadoService) {}
 
   ngOnInit(): void {
     this.cargarEmpleados();
+    this.modalActualizar = new bootstrap.Modal(document.getElementById('editarEmpleadoModal'));
   }
 
   cargarEmpleados(): void {
@@ -33,12 +35,8 @@ export class ListaDeEmpleadosComponent implements OnInit {
         this.empleados = data;
         this.empleadosFiltrados = data;
       },
-      error: (error) => {
-        console.error("Error al cargar empleados:", error);
-      },
-      complete: () => {
-        this.cargando = false;
-      },
+      error: (error) => console.error("Error al cargar empleados:", error),
+      complete: () => (this.cargando = false),
     });
   }
 
@@ -63,16 +61,21 @@ export class ListaDeEmpleadosComponent implements OnInit {
 
   seleccionarEmpleado(empleado: Empleado): void {
     this.empleadoSeleccionado = { ...empleado };
-    const modal = new bootstrap.Modal(document.getElementById('editarEmpleadoModal'));
-    modal.show();
+    this.modalActualizar.show();
   }
 
   actualizarEmpleado(): void {
-    if (this.empleadoSeleccionado) {
-      this.empleadoService.editarEmpleado(this.empleadoSeleccionado).subscribe({
-        next: () => this.cargarEmpleados(),
-        error: (error) => console.error("Error al actualizar empleado:", error),
-      });
-    }
+  if (this.empleadoSeleccionado) {
+    this.empleadoService.editarEmpleado(this.empleadoSeleccionado).subscribe({
+      next: () => {
+        this.cargarEmpleados();
+        this.empleadoSeleccionado = null; // Resetear selección
+        this.modalActualizar.hide();
+      },
+      error: (error) => console.error("Error al actualizar empleado:", error),
+    });
   }
+}
+
+
 }

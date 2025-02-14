@@ -29,9 +29,10 @@ export class EmpleadoService {
   }
 
   // Metodo para editar empleado
-  editarEmpleado(empleado: Empleado): Observable<string> {
-    return this.http.put<string>(`${this.apiUrl}/Editar`, empleado);
+  editarEmpleado(empleado: Empleado) {
+    return this.http.put('http://localhost:5034/api/Empleado/Editar', empleado, { responseType: 'text' });
   }
+
 
   // Metodo para eliminar empleado
   eliminarEmpleado(id: number): Observable<string> {
