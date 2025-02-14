@@ -21,22 +21,61 @@
     }
 }
 
-.btn-custom-update {
-    background-color: #ff6f61; // Mismo color que el encabezado
-    border: none;
-    color: white;
-    border-radius: 50px;
-    padding: 6px 12px;
-    font-weight: bold;
-    transition: all 0.3s ease-in-out;
+// Encabezado del modal
+.modal-header-custom {
+  background-color: #ff6f61;
+  color: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
 
-    &:hover {
-      background-color: darken(#ff6f61, 10%);
-      transform: scale(1.05);
-    }
+// Cuerpo del modal
+.modal-content {
+  border-radius: 12px;
+}
 
-    &:active {
-      transform: scale(0.95);
-    }
+// Estilos para los inputs
+.input-custom {
+  border: 2px solid #ff6f61;
+  border-radius: 8px;
+  padding: 10px;
+
+  &:focus {
+    border-color: darken(#ff6f61, 10%);
+    box-shadow: 0 0 8px rgba(255, 111, 97, 0.5);
   }
+}
+
+// Botón de cancelar
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s;
+
+  &:hover {
+    background-color: darken(#6c757d, 10%);
+  }
+}
+
+// Botón de actualizar
+.btn-update {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s;
+  font-weight: bold;
+
+  &:hover {
+    background-color: darken(#ff6f61, 10%);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 

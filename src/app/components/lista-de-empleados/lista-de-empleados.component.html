@@ -60,32 +60,39 @@
 
 <!-- Modal para actualizar empleado -->
 <div class="modal fade" id="editarEmpleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #007bff; color: white;">
-        <h5 class="modal-title" id="editarEmpleadoModalLabel">Actualizar Empleado</h5>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-4 shadow-lg">
+
+      <!-- Encabezado del modal -->
+      <div class="modal-header modal-header-custom">
+        <h5 class="modal-title" id="editarEmpleadoModalLabel">✏️ Actualizar Empleado</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <form *ngIf="empleadoSeleccionado">
           <div class="mb-3">
-            <label class="form-label">Nombre Completo</label>
-            <input type="text" class="form-control" [(ngModel)]="empleadoSeleccionado.nombreCompleto" name="nombreCompleto">
+            <label class="form-label fw-bold"><i class="bi bi-person-fill"></i> Nombre Completo</label>
+            <input type="text" class="form-control input-custom" [(ngModel)]="empleadoSeleccionado.nombreCompleto" name="nombreCompleto">
           </div>
           <div class="mb-3">
-            <label class="form-label">Número Documento</label>
-            <input type="text" class="form-control" [(ngModel)]="empleadoSeleccionado.numeroDocumento" name="numeroDocumento">
+            <label class="form-label fw-bold"><i class="bi bi-card-list"></i> Número Documento</label>
+            <input type="text" class="form-control input-custom" [(ngModel)]="empleadoSeleccionado.numeroDocumento" name="numeroDocumento">
           </div>
           <div class="mb-3">
-            <label class="form-label">Sueldo</label>
-            <input type="number" class="form-control" [(ngModel)]="empleadoSeleccionado.sueldo" name="sueldo">
+            <label class="form-label fw-bold"><i class="bi bi-cash-stack"></i> Sueldo ($)</label>
+            <input type="number" class="form-control input-custom" [(ngModel)]="empleadoSeleccionado.sueldo" name="sueldo">
           </div>
         </form>
       </div>
+
+      <!-- Pie del modal -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" (click)="actualizarEmpleado()" data-bs-dismiss="modal">Actualizar</button>
+        <button type="button" class="btn btn-cancel rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-update px-4" (click)="actualizarEmpleado()" data-bs-dismiss="modal">Actualizar</button>
       </div>
     </div>
   </div>
 </div>
+
