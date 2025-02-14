@@ -34,6 +34,8 @@ export class CrearEmpleadoComponent {
 
   onCrearEmpleado(): void {
 
+    console.log("Número antes de enviar:", this.nuevoEmpleado.numeroDocumento);
+
     this.cargando = true; // Al hacer petición se activa el loader.
 
     this.empleadoService.crearEmpleado(this.nuevoEmpleado).subscribe({
