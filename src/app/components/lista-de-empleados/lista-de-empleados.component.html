@@ -15,10 +15,9 @@
       </div>
     </div>
 
-    <!-- Spinner centrado mientras se cargan los datos -->
+    <!-- Spinner de carga -->
     <div *ngIf="cargando" class="d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle" style="z-index: 10; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.5); padding-top: 400px">
-      <div class="spinner-border text-danger" style="width: 4rem; height: 4rem;" role="status">
-      </div>
+      <div class="spinner-border text-danger" style="width: 4rem; height: 4rem;" role="status"></div>
     </div>
 
     <!-- Tabla de empleados -->
@@ -29,8 +28,9 @@
             <tr>
               <th class="text-center">ID</th>
               <th>Nombre</th>
-              <th>Numero Celular</th>
+              <th>Número Documento</th>
               <th class="text-end">Sueldo ($)</th>
+              <th class="text-center">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -39,6 +39,14 @@
               <td>{{ empleado.nombreCompleto }}</td>
               <td>{{ empleado.numeroDocumento }}</td>
               <td class="text-end fw-bold" style="color: #4CAF50;">{{ empleado.sueldo | currency:'USD':'symbol' }}</td>
+              <td class="text-center">
+                <button class="btn btn-primary btn-sm me-2" (click)="seleccionarEmpleado(empleado)">
+                  Actualizar
+                </button>
+                <button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(empleado.idEmpleado)">
+                  Eliminar
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -48,4 +56,36 @@
 
   <!-- Componente para crear empleados -->
   <app-crear-empleado (empleadoCreado)="cargarEmpleados()"></app-crear-empleado>
+</div>
+
+<!-- Modal para actualizar empleado -->
+<div class="modal fade" id="editarEmpleadoModal" tabindex="-1" aria-labelledby="editarEmpleadoModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #007bff; color: white;">
+        <h5 class="modal-title" id="editarEmpleadoModalLabel">Actualizar Empleado</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="empleadoSeleccionado">
+          <div class="mb-3">
+            <label class="form-label">Nombre Completo</label>
+            <input type="text" class="form-control" [(ngModel)]="empleadoSeleccionado.nombreCompleto" name="nombreCompleto">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Número Documento</label>
+            <input type="text" class="form-control" [(ngModel)]="empleadoSeleccionado.numeroDocumento" name="numeroDocumento">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Sueldo</label>
+            <input type="number" class="form-control" [(ngModel)]="empleadoSeleccionado.sueldo" name="sueldo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="actualizarEmpleado()" data-bs-dismiss="modal">Actualizar</button>
+      </div>
+    </div>
+  </div>
 </div>

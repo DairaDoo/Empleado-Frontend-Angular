@@ -35,8 +35,7 @@ export class EmpleadoService {
 
   // Metodo para eliminar empleado
   eliminarEmpleado(id: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/Eliminar?id=${id}`)
+    return this.http.delete<string>(`${this.apiUrl}/Eliminar?id=${id}`, { responseType: 'text' as 'json' });
   }
 
-  // Resto..
 }

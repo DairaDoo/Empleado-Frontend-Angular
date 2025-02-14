@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { EmpleadoService } from '../../services/empleado.service';
-import { Empleado } from '../../models/empleado';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { EmpleadoService } from "../../services/empleado.service";
+import { Empleado } from "../../models/empleado";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 import { CrearEmpleadoComponent } from "../crear-empleado/crear-empleado.component";
 
+declare var bootstrap: any; // Para manejar el modal de Bootstrap
+
 @Component({
-  selector: 'app-lista-de-empleados',
+  selector: "app-lista-de-empleados",
   imports: [CommonModule, FormsModule, CrearEmpleadoComponent],
-  templateUrl: './lista-de-empleados.component.html',
-  styleUrls: ['./lista-de-empleados.component.scss']
+  templateUrl: "./lista-de-empleados.component.html",
+  styleUrls: ["./lista-de-empleados.component.scss"],
 })
 export class ListaDeEmpleadosComponent implements OnInit {
   empleados: Empleado[] = [];
   empleadosFiltrados: Empleado[] = [];
-  cargando: boolean = false; // Controlador del spinner
-  searchText: string = ''; // Texto de búsqueda
+  cargando: boolean = false;
+  searchText: string = "";
+  empleadoSeleccionado: Empleado | null = null;
 
   constructor(private empleadoService: EmpleadoService) {}
 
@@ -24,32 +27,52 @@ export class ListaDeEmpleadosComponent implements OnInit {
   }
 
   cargarEmpleados(): void {
-    this.cargando = true; // Muestra el spinner
+    this.cargando = true;
     this.empleadoService.getEmpleados().subscribe({
       next: (data) => {
         this.empleados = data;
-        this.empleadosFiltrados = data; // Al cargar los empleados, se muestran todos por defecto
+        this.empleadosFiltrados = data;
       },
       error: (error) => {
-        console.error('Error al cargar empleados:', error);
+        console.error("Error al cargar empleados:", error);
       },
       complete: () => {
-        this.cargando = false; // Oculta el spinner cuando termina
-      }
+        this.cargando = false;
+      },
     });
   }
 
-  // Método que filtra los empleados según el texto de búsqueda
   filtrarEmpleados(): void {
-  if (this.searchText.trim() === '') {
-    this.empleadosFiltrados = this.empleados;
-  } else {
-    this.empleadosFiltrados = this.empleados.filter((empleado) =>
-      empleado.nombreCompleto.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      empleado.numeroDocumento.toLowerCase().includes(this.searchText.toLowerCase()) ||
-      empleado.idEmpleado.toString().includes(this.searchText) // Filtro por ID
-    );
+    this.empleadosFiltrados = this.searchText.trim() === ""
+      ? this.empleados
+      : this.empleados.filter(empleado =>
+          empleado.nombreCompleto.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          empleado.numeroDocumento.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          empleado.idEmpleado.toString().includes(this.searchText)
+        );
   }
-}
 
+  eliminarEmpleado(id: number): void {
+    if (confirm("¿Estás seguro de que deseas eliminar este empleado?")) {
+      this.empleadoService.eliminarEmpleado(id).subscribe({
+        next: () => this.cargarEmpleados(),
+        error: (error) => console.error("Error al eliminar empleado:", error),
+      });
+    }
+  }
+
+  seleccionarEmpleado(empleado: Empleado): void {
+    this.empleadoSeleccionado = { ...empleado };
+    const modal = new bootstrap.Modal(document.getElementById('editarEmpleadoModal'));
+    modal.show();
+  }
+
+  actualizarEmpleado(): void {
+    if (this.empleadoSeleccionado) {
+      this.empleadoService.editarEmpleado(this.empleadoSeleccionado).subscribe({
+        next: () => this.cargarEmpleados(),
+        error: (error) => console.error("Error al actualizar empleado:", error),
+      });
+    }
+  }
 }
